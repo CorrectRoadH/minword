@@ -266,7 +266,7 @@ namespace minword
 
         private void OpenFile(object sender, EventArgs e)
         {
-            Console.WriteLine(openFileDialog1.ShowDialog());
+            openFileDialog1.ShowDialog();
         }
         private void Cascade_Click(object sender, EventArgs e)
         {
@@ -332,7 +332,6 @@ namespace minword
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            Console.WriteLine(openFileDialog1.FileName);
             Word frmTemp = new Word(FormCount,openFileDialog1.FileName);
             frmTemp.MdiParent = this;
             frmTemp.Text = openFileDialog1.FileName;

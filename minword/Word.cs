@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace minword
 {
+
     public partial class Word : Form
     {
+        private bool isActive = true;
         private String fileName;
         public int id;
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -50,7 +52,28 @@ namespace minword
 
         public void saveFile()
         {
-            if (fileName.Equals(""))
+            if(isActive)
+                if (fileName.Equals(""))
+                {
+                    DialogResult result = saveFileDialog.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        fileName = saveFileDialog.FileName.ToString();
+                        Console.WriteLine(saveFileDialog.FileName.ToString());
+                        richTextBox1.SaveFile(fileName);
+                        isSave = true;
+                    }
+                }
+                else
+                {
+                    richTextBox1.SaveFile(fileName);
+                    isSave = true;
+                }
+        }
+
+        public void saveFileToAnother()
+        {
+            if (isActive)
             {
                 DialogResult result = saveFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
@@ -60,23 +83,6 @@ namespace minword
                     richTextBox1.SaveFile(fileName);
                     isSave = true;
                 }
-            }
-            else
-            {
-                richTextBox1.SaveFile(fileName);
-                isSave = true;
-            }
-        }
-
-        public void saveFileToAnother()
-        {
-            DialogResult result = saveFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                fileName = saveFileDialog.FileName.ToString();
-                Console.WriteLine(saveFileDialog.FileName.ToString());
-                richTextBox1.SaveFile(fileName);
-                isSave = true;
             }
         }
         private void Word_Load(object sender, EventArgs e)
@@ -93,15 +99,16 @@ namespace minword
             richTextBox1.Select(searchPos, length);
         }
         public void CloseWindows() {
-            if (!isSave)
-            {
-                DialogResult dr = MessageBox.Show("关闭", "是否保存更改", MessageBoxButtons.OKCancel);
-                if(dr == DialogResult.OK)
-                {
-                    saveFile();
-                }
-            }
-            this.Hide();
+            if (isActive)
+                if (!isSave)
+                    {
+                        DialogResult dr = MessageBox.Show("关闭", "是否保存更改", MessageBoxButtons.OKCancel);
+                        if(dr == DialogResult.OK)
+                        {
+                            saveFile();
+                        }
+                    }
+                    this.Hide();
         }
 
         private void Word_Activated(object sender, EventArgs e)
@@ -128,6 +135,7 @@ namespace minword
 
         private void Word_FormClosing(object sender, FormClosingEventArgs e)
         {
+            isActive = false;
             CloseWindows();
         }
     }
