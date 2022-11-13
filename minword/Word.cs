@@ -110,6 +110,16 @@ namespace minword
             Form1.selectindex = this.id;
         }
 
+        public void setSelectedColor(Color color)
+        {
+            richTextBox1.SelectionColor = color;
+        }
+
+        public void setSelectedFont(Font fs)
+        {
+            richTextBox1.SelectionFont = fs;
+        }
+
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {

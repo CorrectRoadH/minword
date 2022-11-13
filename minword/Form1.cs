@@ -69,8 +69,8 @@ namespace minword
             SytleMenu = new MenuItem();
             SytleMenu.Text = "设置文本";
             EditMenu.MenuItems.Add(SytleMenu);
-            SytleMenu.MenuItems.Add("颜色", new EventHandler(openFindForm));
-            SytleMenu.MenuItems.Add("字体", new EventHandler(openFindForm));
+            SytleMenu.MenuItems.Add("颜色", new EventHandler(selectColor));
+            SytleMenu.MenuItems.Add("字体", new EventHandler(selectFont));
 
             EditMenu.MenuItems.Add("查找", new EventHandler(openFindForm));
             EditMenu.MenuItems.Add("查找下一个", new EventHandler(findNext));
@@ -104,6 +104,45 @@ namespace minword
 
             this.Menu = mnuMain;
 
+        }
+
+        private void selectColor(object sender, EventArgs e)
+        {
+            if (selectindex != -1)
+            {
+
+                ColorDialog cd = new ColorDialog();
+                DialogResult rs = 
+                    cd.ShowDialog();
+                if(rs == DialogResult.OK)
+                {
+                    words[selectindex].setSelectedColor(cd.Color);
+                    }
+                }
+            else
+            {
+                MessageBox.Show("当前无有效文档");
+
+            }
+        }
+
+        private void selectFont(object sender, EventArgs e)
+        {
+            if (selectindex != -1)
+            {
+                FontDialog fd = new FontDialog();
+                DialogResult rs =
+                    fd.ShowDialog();
+                if (rs == DialogResult.OK)
+                {
+                    words[selectindex].setSelectedFont(fd.Font);
+                }
+            }
+            else
+            {
+                MessageBox.Show("当前无有效文档");
+
+            }
         }
 
         private void openFindForm(object sender, EventArgs e)
@@ -144,6 +183,12 @@ namespace minword
                 words[selectindex].saveFile();
 
             }
+            else
+            {
+                MessageBox.Show("当前无有效文档");
+
+            }
+
         }
 
         private void saveALLFile(object sender, EventArgs e)
@@ -158,13 +203,30 @@ namespace minword
         private void saveFileToAnother(object sender, EventArgs e)
         {
             if (selectindex != -1)
+            {
                 words[selectindex].saveFileToAnother();
+            }
+            else
+            {
+                MessageBox.Show("当前无有效文档");
+
+            }
+
         }
 
         private void closeCurrent(object sender, EventArgs e)
         {
             if (selectindex != -1)
+            {
                 words[selectindex].CloseWindows();
+            }
+            else
+            {
+                MessageBox.Show("当前无有效文档");
+
+            }
+
+
         }
         private void closeAll(object sender, EventArgs e)
         {
