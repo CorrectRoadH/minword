@@ -34,6 +34,13 @@ namespace minword
             richTextBox1.LoadFile(fileName);
         }
 
+        public void toggleAutomationNewLine(bool value) { 
+            if (isActive)
+            {
+                richTextBox1.WordWrap = value;
+            }
+        }
+
         public int Find(String strSearch, int searchPos, bool isMatch)
         {
             return richTextBox1.Find(strSearch, searchPos, richTextBox1.Text.Length, isMatch?RichTextBoxFinds.MatchCase:RichTextBoxFinds.None);

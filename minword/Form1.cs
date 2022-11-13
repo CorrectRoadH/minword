@@ -173,6 +173,10 @@ namespace minword
             if (selectindex != -1)
             {
                 AutomationNewLineMenu.Checked = !AutomationNewLineMenu.Checked;
+                words.ForEach((Word word) =>
+                {
+                    word.toggleAutomationNewLine(AutomationNewLineMenu.Checked);
+                });
             }
             else
             {
@@ -327,6 +331,7 @@ namespace minword
             this.printDialog.AllowSomePages = true;
             this.printDialog.AllowSelection = true;
             this.printDialog.AllowPrintToFile = true;
+            AutomationNewLineMenu.Checked = true;
 
         }
 
