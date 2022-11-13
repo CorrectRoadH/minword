@@ -15,14 +15,18 @@ namespace minword
     public partial class Form1 : Form
     {
         private static int FormCount = 0;
-        private static List<Word> words = new List<Word>();
+        public static List<Word> words = new List<Word>();
         public static int selectindex = -1; // 当前选中的是哪个word;  
 
         //定义此常量是为了统计MDI窗体数目，
         MainMenu mnuMain = new MainMenu();
         MenuItem FileMenu;
+
         MenuItem ExitMenu;
+        MenuItem EditMenu;
+
         MenuItem WindowMenu;
+        MenuItem HelpMenu;
 
         private PageSetupDialog pageSetupDialog = new PageSetupDialog();
         private PrintDialog printDialog = new PrintDialog();
@@ -34,14 +38,14 @@ namespace minword
         {
             InitializeComponent();
             this.IsMdiContainer = true;
-            this.Text = "MDI演示程序";
+            this.Text = "miniword";
             FileMenu = new MenuItem();
             FileMenu.Text = "文件";
             FileMenu.MenuItems.Add("新建", new EventHandler(New_Click));
             FileMenu.MenuItems.Add("打开", new EventHandler(OpenFile));
             FileMenu.MenuItems.Add("保存", new EventHandler(saveFile));
             FileMenu.MenuItems.Add("另存为", new EventHandler(saveFileToAnother));
-            FileMenu.MenuItems.Add("全部保存", new EventHandler(OpenFile));
+            FileMenu.MenuItems.Add("全部保存", new EventHandler(saveALLFile));
             FileMenu.MenuItems.Add("关闭", new EventHandler(closeCurrent));
             FileMenu.MenuItems.Add("全部关闭", new EventHandler(closeAll));
             FileMenu.MenuItems.Add(new MenuItem("-"));
@@ -55,8 +59,17 @@ namespace minword
             ExitMenu.Click += new EventHandler(Exit_Click);
             FileMenu.MenuItems.Add(ExitMenu);
 
+            EditMenu = new MenuItem();
+            EditMenu.Text = "编辑";
 
-            
+            EditMenu.MenuItems.Add("设置文本", new EventHandler(PageSetupToolStripMenuItem_Click));
+            EditMenu.MenuItems.Add("查找", new EventHandler(openFindForm));
+            EditMenu.MenuItems.Add("查找下一个", new EventHandler(findNext));
+            EditMenu.MenuItems.Add("插入时间/日期", new EventHandler(PageSetupToolStripMenuItem_Click));
+            EditMenu.MenuItems.Add("自动换行", new EventHandler(PageSetupToolStripMenuItem_Click));
+            EditMenu.MenuItems.Add("全选", new EventHandler(PageSetupToolStripMenuItem_Click));
+
+
             WindowMenu = new MenuItem();
             WindowMenu.Text = "窗口(&W)";
             WindowMenu.MenuItems.Add("堆叠(&C)", new EventHandler(Cascade_Click));
@@ -65,10 +78,37 @@ namespace minword
             //这一句比较重要，有了这一句就可以实现在新建一个MDI窗体后会在此主菜单项下显示存在的MDI窗体菜单项
 
 
+            HelpMenu = new MenuItem();
+            HelpMenu.Text = "帮助(&H)";
+            HelpMenu.MenuItems.Add("关于", new EventHandler(aboutToolStripMenuItem_Click));
+
+
             mnuMain.MenuItems.Add(FileMenu);
+            mnuMain.MenuItems.Add(EditMenu);
             mnuMain.MenuItems.Add(WindowMenu);
+            mnuMain.MenuItems.Add(HelpMenu);
+
             this.Menu = mnuMain;
 
+        }
+
+        private void openFindForm(object sender, EventArgs e)
+        {
+            new FindForm().Show();
+
+        }
+
+        private void findNext(object sender, EventArgs e)
+        {
+            new FindForm().Show();
+        }
+
+
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.ShowDialog();
         }
 
         private void saveFile(object sender, EventArgs e)
@@ -79,6 +119,16 @@ namespace minword
 
             }
         }
+
+        private void saveALLFile(object sender, EventArgs e)
+        {
+            words.ForEach((Word word) =>
+            {
+                word.saveFile();
+            });
+
+        }
+
         private void saveFileToAnother(object sender, EventArgs e)
         {
             if (selectindex != -1)
@@ -178,6 +228,37 @@ namespace minword
             frmTemp.Show();
             FormCount++;
             words.Add(frmTemp);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            New_Click(sender,e);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            OpenFile(sender, e);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            saveFile(sender, e);
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            saveALLFile(sender, e);
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            printCtrlPToolStripMenuItem_Click(sender,e);
+
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            Exit_Click(sender, e);
         }
     }
 }

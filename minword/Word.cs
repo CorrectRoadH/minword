@@ -32,7 +32,10 @@ namespace minword
             richTextBox1.LoadFile(fileName);
         }
 
-
+        public int Find(String strSearch, int searchPos, bool isMatch)
+        {
+            return richTextBox1.Find(strSearch, searchPos, richTextBox1.Text.Length, isMatch?RichTextBoxFinds.MatchCase:RichTextBoxFinds.None);
+        }
         public void saveFile()
         {
             if (fileName.Equals(""))
@@ -70,6 +73,12 @@ namespace minword
             saveFileDialog.FilterIndex = 2;
             saveFileDialog.FileName = "untitle";
             saveFileDialog.DefaultExt = "rtf";
+        }
+
+        public void SelectText(int searchPos, int length)
+        {
+            richTextBox1.Focus();
+            richTextBox1.Select(searchPos, length);
         }
         public void CloseWindows() {
             if (!isSave)
