@@ -43,7 +43,9 @@ namespace minword
 
         public void insertText(String text)
         {
-            this.richTextBox1.Text += text;
+            Clipboard.Clear();
+            Clipboard.SetText(text);
+            this.richTextBox1.Paste();
         }
 
         public void saveFile()
