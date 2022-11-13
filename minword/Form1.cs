@@ -44,10 +44,13 @@ namespace minword
             this.IsMdiContainer = true;
             this.Text = "miniword";
             FileMenu = new MenuItem();
-            FileMenu.Text = "文件";
+            FileMenu.Text = "文件(&F)";
             FileMenu.MenuItems.Add("新建", new EventHandler(New_Click));
+            FileMenu.MenuItems[0].Shortcut = Shortcut.CtrlN;
             FileMenu.MenuItems.Add("打开", new EventHandler(OpenFile));
+            FileMenu.MenuItems[1].Shortcut = Shortcut.CtrlO;
             FileMenu.MenuItems.Add("保存", new EventHandler(saveFile));
+            FileMenu.MenuItems[2].Shortcut = Shortcut.CtrlS;
             FileMenu.MenuItems.Add("另存为", new EventHandler(saveFileToAnother));
             FileMenu.MenuItems.Add("全部保存", new EventHandler(saveALLFile));
             FileMenu.MenuItems.Add("关闭", new EventHandler(closeCurrent));
@@ -56,15 +59,18 @@ namespace minword
             FileMenu.MenuItems.Add("页面设置", new EventHandler(PageSetupToolStripMenuItem_Click));
             FileMenu.MenuItems.Add("打印预览", new EventHandler(PrintPreviewToolStripMenuItem_Click));
             FileMenu.MenuItems.Add("打印", new EventHandler(printCtrlPToolStripMenuItem_Click));
+            FileMenu.MenuItems[10].Shortcut = Shortcut.CtrlQ;
+
             FileMenu.MenuItems.Add(new MenuItem("-"));
             
             ExitMenu = new MenuItem();
-            ExitMenu.Text = "退出(&X)";
+            ExitMenu.Shortcut = Shortcut.CtrlQ;
+            ExitMenu.Text = "退出";
             ExitMenu.Click += new EventHandler(Exit_Click);
             FileMenu.MenuItems.Add(ExitMenu);
 
             EditMenu = new MenuItem();
-            EditMenu.Text = "编辑";
+            EditMenu.Text = "编辑(&E)";
 
             SytleMenu = new MenuItem();
             SytleMenu.Text = "设置文本";
@@ -73,7 +79,11 @@ namespace minword
             SytleMenu.MenuItems.Add("字体", new EventHandler(selectFont));
 
             EditMenu.MenuItems.Add("查找", new EventHandler(openFindForm));
+            EditMenu.MenuItems[1].Shortcut = Shortcut.CtrlF;
+
             EditMenu.MenuItems.Add("查找下一个", new EventHandler(findNext));
+            EditMenu.MenuItems[2].Shortcut = Shortcut.F3;
+
             EditMenu.MenuItems.Add("插入时间/日期", new EventHandler(InsterData));
             AutomationNewLineMenu = new MenuItem();
             AutomationNewLineMenu.Text = "自动换行";
@@ -82,12 +92,14 @@ namespace minword
             EditMenu.MenuItems.Add(AutomationNewLineMenu);
 
             EditMenu.MenuItems.Add("全选", new EventHandler(AllSelect));
+            EditMenu.MenuItems[5].Shortcut = Shortcut.CtrlA;
+
 
 
             WindowMenu = new MenuItem();
             WindowMenu.Text = "窗口(&W)";
-            WindowMenu.MenuItems.Add("堆叠(&C)", new EventHandler(Cascade_Click));
-            WindowMenu.MenuItems.Add("平铺(&V)", new EventHandler(TileH_Click));
+            WindowMenu.MenuItems.Add("堆叠", new EventHandler(Cascade_Click));
+            WindowMenu.MenuItems.Add("平铺", new EventHandler(TileH_Click));
             WindowMenu.MdiList = true;
             //这一句比较重要，有了这一句就可以实现在新建一个MDI窗体后会在此主菜单项下显示存在的MDI窗体菜单项
 
