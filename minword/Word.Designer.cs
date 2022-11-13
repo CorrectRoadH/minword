@@ -50,6 +50,7 @@
             this.Name = "Word";
             this.Text = "Word";
             this.Activated += new System.EventHandler(this.Word_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Word_FormClosing);
             this.Load += new System.EventHandler(this.Word_Load);
             this.ResumeLayout(false);
 

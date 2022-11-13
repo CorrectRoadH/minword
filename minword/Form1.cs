@@ -24,6 +24,10 @@ namespace minword
 
         MenuItem ExitMenu;
         MenuItem EditMenu;
+        MenuItem SytleMenu;
+        MenuItem AutomationNewLineMenu;
+
+
 
         MenuItem WindowMenu;
         MenuItem HelpMenu;
@@ -62,12 +66,22 @@ namespace minword
             EditMenu = new MenuItem();
             EditMenu.Text = "编辑";
 
-            EditMenu.MenuItems.Add("设置文本", new EventHandler(PageSetupToolStripMenuItem_Click));
+            SytleMenu = new MenuItem();
+            SytleMenu.Text = "设置文本";
+            EditMenu.MenuItems.Add(SytleMenu);
+            SytleMenu.MenuItems.Add("颜色", new EventHandler(openFindForm));
+            SytleMenu.MenuItems.Add("字体", new EventHandler(openFindForm));
+
             EditMenu.MenuItems.Add("查找", new EventHandler(openFindForm));
             EditMenu.MenuItems.Add("查找下一个", new EventHandler(findNext));
-            EditMenu.MenuItems.Add("插入时间/日期", new EventHandler(PageSetupToolStripMenuItem_Click));
-            EditMenu.MenuItems.Add("自动换行", new EventHandler(PageSetupToolStripMenuItem_Click));
-            EditMenu.MenuItems.Add("全选", new EventHandler(PageSetupToolStripMenuItem_Click));
+            EditMenu.MenuItems.Add("插入时间/日期", new EventHandler(InsterData));
+            AutomationNewLineMenu = new MenuItem();
+            AutomationNewLineMenu.Text = "自动换行";
+            AutomationNewLineMenu.Checked = false;
+            AutomationNewLineMenu.Click += new EventHandler(togglNewline);
+            EditMenu.MenuItems.Add(AutomationNewLineMenu);
+
+            EditMenu.MenuItems.Add("全选", new EventHandler(AllSelect));
 
 
             WindowMenu = new MenuItem();
@@ -101,6 +115,18 @@ namespace minword
         private void findNext(object sender, EventArgs e)
         {
             new FindForm().Show();
+        }
+
+        private void togglNewline(object sender, EventArgs e)
+        {
+            if (selectindex != -1)
+            {
+                AutomationNewLineMenu.Checked = !AutomationNewLineMenu.Checked;
+            }
+            else
+            {
+                MessageBox.Show("当前无有效文档");
+            }
         }
 
 
@@ -173,7 +199,18 @@ namespace minword
             this.LayoutMdi(MdiLayout.Cascade);
         }
 
-        
+        private void InsterData(object sender, EventArgs e)
+        {
+            if (selectindex != -1)
+                words[selectindex].insertText(DateTime.Now.ToLocalTime().ToString());
+        }
+
+        private void AllSelect(object sender, EventArgs e)
+        {
+            if (selectindex != -1)
+                words[selectindex].AllSelect();
+        }
+
 
 
         private void TileH_Click(object sender, EventArgs e)

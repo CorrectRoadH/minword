@@ -36,6 +36,16 @@ namespace minword
         {
             return richTextBox1.Find(strSearch, searchPos, richTextBox1.Text.Length, isMatch?RichTextBoxFinds.MatchCase:RichTextBoxFinds.None);
         }
+
+        public void AllSelect() {
+            this.richTextBox1.Select(0, richTextBox1.Text.Length);
+        }
+
+        public void insertText(String text)
+        {
+            this.richTextBox1.Text += text;
+        }
+
         public void saveFile()
         {
             if (fileName.Equals(""))
@@ -102,6 +112,11 @@ namespace minword
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             isSave = false;
+        }
+
+        private void Word_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CloseWindows();
         }
     }
 }
