@@ -106,16 +106,20 @@ namespace minword
             richTextBox1.Select(searchPos, length);
         }
         public void CloseWindows() {
-            if (isActive)
+            if (isActive) {
                 if (!isSave)
+                {
                     {
                         DialogResult dr = MessageBox.Show("关闭", "是否保存更改", MessageBoxButtons.OKCancel);
-                        if(dr == DialogResult.OK)
+                        if (dr == DialogResult.OK)
                         {
                             saveFile();
+                            this.Hide();
                         }
                     }
-                    this.Hide();
+                   
+                }
+            }
         }
 
         private void Word_Activated(object sender, EventArgs e)
@@ -142,8 +146,19 @@ namespace minword
 
         private void Word_FormClosing(object sender, FormClosingEventArgs e)
         {
-            isActive = false;
-            CloseWindows();
+            DialogResult dr = MessageBox.Show("关闭", "是否保存更改", MessageBoxButtons.OKCancel);
+            if (dr == DialogResult.OK)
+            {
+                saveFile();
+                this.Hide();
+                isActive = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+            
+
         }
     }
 }
