@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace minword
@@ -17,6 +18,7 @@ namespace minword
         private static int FormCount = 0;
         public static List<Word> words = new List<Word>();
         public static int selectindex = -1; // 当前选中的是哪个word;  
+        public static int closeCount = 0;
 
         //定义此常量是为了统计MDI窗体数目，
         MainMenu mnuMain = new MainMenu();
@@ -308,6 +310,13 @@ namespace minword
             frmTemp.Show();
             words.Add(frmTemp);
             //把此MDI窗体显示出来
+
+            
+        }
+
+        public void updateStatue()
+        {
+            toolStripStatusLabel1.Text = "共有" + (words.Count - closeCount).ToString() + "个文档";
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -374,6 +383,11 @@ namespace minword
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
             Exit_Click(sender, e);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            updateStatue();
         }
     }
 }

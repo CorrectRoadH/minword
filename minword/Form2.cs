@@ -25,7 +25,7 @@ namespace minword
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            this.textBox1.Text = "\r\n\r\n迷你记事本V1.1\r\n\r\n闽江学院\r\n软工20级 黄道正\r\n\r\n版权所有\r\n\r\nCopyright 2022";
+            this.textBox1.Text = "\r\n\r\n迷你记事本V1.1\r\n\r\n福州大学\r\n软工20级 黄道正\r\n\r\n版权所有\r\n\r\nCopyright 2022";
             this.label1.Text = "当前显示图片1";
 
         }

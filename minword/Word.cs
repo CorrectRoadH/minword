@@ -113,6 +113,7 @@ namespace minword
                         DialogResult dr = MessageBox.Show("关闭", "是否保存更改", MessageBoxButtons.OKCancel);
                         if (dr == DialogResult.OK)
                         {
+                            Form1.closeCount++;
                             saveFile();
                             this.Hide();
                         }
@@ -151,6 +152,7 @@ namespace minword
             {
                 saveFile();
                 this.Hide();
+                Form1.closeCount++;
                 isActive = false;
             }
             else
